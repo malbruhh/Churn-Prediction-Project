@@ -157,7 +157,7 @@ def NN_sgd_BCE(X_train_final, y_train_final, X_test_final, y_test_final):
     model.add(Dense(units=1, activation='sigmoid', name='output_layer'))
     
     model.summary()
-    model.compile(optimizer = 'sgd', learning_rate=0.01, loss='binary_crossentropy', metrics=['accuracy', Recall(), Precision()])
+    model.compile(optimizer = 'sgd', loss='binary_crossentropy', metrics=['accuracy', Recall(), Precision()])
         
     #--4 Model Training: Fit, Predict and Evaluate--
     EPOCHS = 500
@@ -181,12 +181,11 @@ def loss_curve_plot(history):
     val_loss = history.history['val_loss']
     train_loss = history.history['loss']
     plt.figure(figsize=(8, 5))
-    plt.plot(train_loss, label='Training Loss' color='blue')
-    plt.plot(val_loss, label='Validation Loss'color='orange')
+    plt.plot(train_loss, label='Training Loss',color='blue', lw=1.0, marker='x', ms=4.0)
+    plt.plot(val_loss, label='Validation Loss',color='orange', lw=1.0, marker='x', ms=4.0)
     plt.title('Model Loss (Learning Curve)')
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
-    plt.ylim(0,100)
     plt.legend()
     plt.grid(True)
     plt.show()
@@ -197,8 +196,8 @@ def accuracy_plot(history):
     epochs = range(1, len(train_acc) + 1)
 
     plt.figure(figsize=(8, 5))
-    plt.plot(epochs, train_acc, 'bo-', label='Training Accuracy', color='blue') # 'bo-' blue dots and lines
-    plt.plot(epochs, val_acc, 'ro-', label='Validation Accuracy', color='orange') # 'ro-' red dots and lines
+    plt.plot(epochs, train_acc, label='Training Accuracy', color='blue', lw=1.0, marker='x', ms=4.0) # 'bo-' blue dots and lines
+    plt.plot(epochs, val_acc, label='Validation Accuracy', color='orange', lw=1.0, marker='x', ms=4.0) # 'ro-' red dots and lines
     plt.title('Training and Validation Accuracy Over Epochs')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
@@ -297,15 +296,24 @@ def main():
     y_train_final = y_train.values.reshape(-1, 1)
     y_test_final = y_test.values.reshape(-1, 1)
     
-    #-- 1st Model: MSE Loss --
+    #--4 1st Model: Adam Optimizer, MSE Loss --
     print('\n--- 1st Model: Using Mean Squared Error (MSE)')
     first_history, first_y_hat = NN_adam_MSE(X_train_final, y_train_final, X_test_final, y_test_final)
     
     #--5 Plotting Graphs--
-    loss_curve_plot(first_history) #loss curve graph
-    accuracy_plot(first_history) #accuracy over epochs plot
-    confustion_mtx_map(y_test_final, first_y_hat) #Confusion Matrix Heatmap
+    loss_curve_plot(first_history)
+    accuracy_plot(first_history)
+    confustion_mtx_map(y_test_final, first_y_hat)
     
+    input("Press Enter to continue to the second model...")
+    
+    #--6 2nd Model: SGD Optimizer, Binary Cross Entropy Loss --
+    print('\n--- 2nd Model: Using Binary Cross Entropy (BCE)')
+    second_history, second_y_hat = NN_sgd_BCE(X_train_final, y_train_final, X_test_final, y_test_final)
+    #--7 Plotting Graphs--
+    loss_curve_plot(second_history)
+    accuracy_plot(second_history)
+    confustion_mtx_map(y_test_final, second_y_hat)
     
 if __name__ == "__main__":
     main()
