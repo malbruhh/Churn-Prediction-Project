@@ -18,25 +18,18 @@ The goal of this project is to predict whether a customer will churn based on 12
 3.  **Model 3:** Adam Optimizer + MSE Loss + Extra Hidden Layer (16 neurons → 8 neurons).
 
 ## Data Preprocessing
-[cite_start]The script performs a rigorous preprocessing pipeline to ensure data quality:
-* [cite_start]**Cleaning:** Column names are standardized to lowercase and underscores.
-* [cite_start]**Deduplication:** Exact duplicate rows are removed to prevent bias.
-* [cite_start]**Feature Engineering:** One-hot encoding is applied to categorical features (`complains`, `tariff_plan`, `status`), and redundant columns like `age_group` are dropped.
-* [cite_start]**Outlier Treatment:** Applied **Log Transformation** (`np.log1p`) to highly skewed usage data (e.g., `seconds_of_use`, `frequency_of_sms`) to normalize distributions.
-* [cite_start]**Scaling:** Used **Min-Max Scaling** to bring all features into a uniform range of [0, 1][cite: 1].
-* [cite_start]**Splitting:** A stratified 80/20 split is used to maintain the class ratio in both training and testing sets.
+The script performs a rigorous preprocessing pipeline to ensure data quality:
+**Cleaning:** Column names are standardized to lowercase and underscores.
+**Deduplication:** Exact duplicate rows are removed to prevent bias.
+**Feature Engineering:** One-hot encoding is applied to categorical features (`complains`, `tariff_plan`, `status`), and redundant columns like `age_group` are dropped.
+**Outlier Treatment:** Applied **Log Transformation** (`np.log1p`) to highly skewed usage data (e.g., `seconds_of_use`, `frequency_of_sms`) to normalize distributions.
+**Scaling:** Used **Min-Max Scaling** to bring all features into a uniform range of [0, 1][cite: 1].
+**Splitting:** A stratified 80/20 split is used to maintain the class ratio in both training and testing sets.
 
 ## Model Architectures
-[cite_start]All models utilize **ReLU** activation for hidden layers and **Sigmoid** for the output layer to provide probability-based predictions.
+All models utilize **ReLU** activation for hidden layers and **Sigmoid** for the output layer to provide probability-based predictions.
 
-| Feature | Model 1 | Model 2 | Model 3 |
-| :--- | :--- | :--- | :--- |
-| **Hidden Layers** | 1 (8 neurons) | 1 (8 neurons) | 2 (16 → 8 neurons) |
-| **Activation** | ReLU | ReLU | ReLU |
-| **Optimizer** | Adam | SGD | Adam |
-| **Loss Function** | MSE | Binary Cross-Entropy | MSE |
-| **Epochs** | 500 | 500 | 500 |
-
+| Model | Hidden Layers | Activation | Activation(Output) | Optimizer | Loss Function | Epochs | | :--- | :--- | :--- | :--- | :--- | :--- | :--- | | Model 1 | 1 (8 neurons) | ReLU | Sigmoid | Adam | Mean Squared Error (MSE) | 500 | | Model 2 | 1 (8 neurons) | ReLU | Sigmoid |SGD | Binary Cross-Entropy(BCE) | 500 | | Model 3 | 2 (16 → 8 neurons) | ReLU | Sigmoid | Adam | Mean Squared Error (MSE) | 500 |
 ## Installation & Setup
 
 1. **Clone the repository:**
@@ -51,7 +44,7 @@ The goal of this project is to predict whether a customer will churn based on 12
     python main.py
 
 ## Visualizations
-[cite_start]The project generates three key plots for each model to evaluate performance:
-* [cite_start]**Loss Curve:** Tracks Training vs. Validation loss over epochs to detect overfitting.
-* [cite_start]**Accuracy Graph:** Visualizes how the success rate improves over time
-* [cite_start]**Confusion Matrix:** Provides a heatmap of True Positives, False Positives, True Negatives, and False Negatives to assess business impact.
+The project generates three key plots for each model to evaluate performance:
+**Loss Curve:** Tracks Training vs. Validation loss over epochs to detect overfitting.
+**Accuracy Graph:** Visualizes how the success rate improves over time
+**Confusion Matrix:** Provides a heatmap of True Positives, False Positives, True Negatives, and False Negatives to assess business impact.
