@@ -19,11 +19,16 @@ The goal of this project is to predict whether a customer will churn based on 12
 
 ## Data Preprocessing
 The script performs a rigorous preprocessing pipeline to ensure data quality:
-**Cleaning:** Column names are standardized to lowercase and underscores.
-**Deduplication:** Exact duplicate rows are removed to prevent bias.
+**Cleaning:** Column names are standardized to lowercase and underscores
+
+**Deduplication:** Exact duplicate rows are removed to prevent bias
+
 **Feature Engineering:** One-hot encoding is applied to categorical features (`complains`, `tariff_plan`, `status`), and redundant columns like `age_group` are dropped.
+
 **Outlier Treatment:** Applied **Log Transformation** (`np.log1p`) to highly skewed usage data (e.g., `seconds_of_use`, `frequency_of_sms`) to normalize distributions.
+
 **Scaling:** Used **Min-Max Scaling** to bring all features into a uniform range of [0, 1][cite: 1].
+
 **Splitting:** A stratified 80/20 split is used to maintain the class ratio in both training and testing sets.
 
 ## Model Architectures
@@ -49,6 +54,9 @@ All models utilize **ReLU** activation for hidden layers and **Sigmoid** for the
 
 ## Visualizations
 The project generates three key plots for each model to evaluate performance:
+
 **Loss Curve:** Tracks Training vs. Validation loss over epochs to detect overfitting.
+
 **Accuracy Graph:** Visualizes how the success rate improves over time
+
 **Confusion Matrix:** Provides a heatmap of True Positives, False Positives, True Negatives, and False Negatives to assess business impact.
