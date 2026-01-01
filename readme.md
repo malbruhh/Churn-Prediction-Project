@@ -29,7 +29,11 @@ The script performs a rigorous preprocessing pipeline to ensure data quality:
 ## Model Architectures
 All models utilize **ReLU** activation for hidden layers and **Sigmoid** for the output layer to provide probability-based predictions.
 
-| Model | Hidden Layers | Activation | Activation(Output) | Optimizer | Loss Function | Epochs | | :--- | :--- | :--- | :--- | :--- | :--- | :--- | | Model 1 | 1 (8 neurons) | ReLU | Sigmoid | Adam | Mean Squared Error (MSE) | 500 | | Model 2 | 1 (8 neurons) | ReLU | Sigmoid |SGD | Binary Cross-Entropy(BCE) | 500 | | Model 3 | 2 (16 → 8 neurons) | ReLU | Sigmoid | Adam | Mean Squared Error (MSE) | 500 |
+| Model   | Hidden Layers            | Activation | Activation (Output) | Optimizer | Loss Function                     | Epochs |
+|--------|--------------------------|------------|---------------------|-----------|----------------------------------|--------|
+| Model 1 | 1 (8 neurons)           | ReLU       | Sigmoid             | Adam      | Mean Squared Error (MSE)          | 500    |
+| Model 2 | 1 (8 neurons)           | ReLU       | Sigmoid             | SGD       | Binary Cross-Entropy (BCE)        | 500    |
+| Model 3 | 2 (16 → 8 neurons)      | ReLU       | Sigmoid             | Adam      | Mean Squared Error (MSE)          | 500    |
 ## Installation & Setup
 
 1. **Clone the repository:**
