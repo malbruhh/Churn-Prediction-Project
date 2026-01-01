@@ -176,21 +176,55 @@ def NN_sgd_BCE(X_train_final, y_train_final, X_test_final, y_test_final):
     print(f"Test Accuracy: {accuracy*100:.2f}%")
     return history, y_hat
 
+#-- 3rd Model
+# 2 hidden layer instead of 1 layer
+# Optimizer: Adam - adaptive learning rate algorithm
+# Loss Function: Mean Squared Error (MSE)
+def NN_adam_MSE_extra_layer(X_train_final, y_train_final, X_test_final, y_test_final):
+    # Input Layer: 12 neurons (features)
+    # Hidden Layer: 8 neurons, ReLU
+    # Output Layer: 1 neuron, Sigmoid 
+    model = Sequential()
+    model.add(Input(shape=(12,)))
+    model.add(Dense(units=16, activation='relu', name='first_hidden_layer'))
+    model.add(Dense(units=8, activation='relu', name='second_hidden_layer'))
+    model.add(Dense(units=1, activation='sigmoid', name='output_layer'))
+    
+    model.summary()
+    model.compile(optimizer = 'adam', loss='mean_squared_error', metrics=['accuracy', Recall(), Precision()])
+        
+    #--4 Model Training: Fit, Predict and Evaluate--
+    EPOCHS = 500
+    BATCH_SIZE = 32
+    history = model.fit(
+        X_train_final, 
+        y_train_final, 
+        epochs=EPOCHS, 
+        batch_size=BATCH_SIZE, 
+        validation_split=0.2, # Uses 20% to check overfitting
+        verbose=1
+    )
+    loss, accuracy, precision, recall= model.evaluate(X_test_final, y_test_final)    
+    y_hat = model.predict(X_test_final)
+    y_hat = [0 if val < 0.5 else 1 for val in y_hat] # <0.5 = not churn, >=0.5 = churn
+    print(f"Test Accuracy: {accuracy*100:.2f}%")
+    return history, y_hat
+
 #--Graph: Loss Curve--
-def loss_curve_plot(history):
+def loss_curve_plot(history,title):
     val_loss = history.history['val_loss']
     train_loss = history.history['loss']
     plt.figure(figsize=(8, 5))
     plt.plot(train_loss, label='Training Loss',color='blue', lw=1.0, marker='x', ms=4.0)
     plt.plot(val_loss, label='Validation Loss',color='orange', lw=1.0, marker='x', ms=4.0)
-    plt.title('Model Loss (Learning Curve)')
+    plt.title(f'{title} Model Loss (Learning Curve)')
     plt.ylabel('Loss')
     plt.xlabel('Epoch')
     plt.legend()
     plt.grid(True)
     plt.show()
 
-def accuracy_plot(history):
+def accuracy_plot(history,title):
     train_acc = history.history['accuracy']
     val_acc = history.history['val_accuracy']
     epochs = range(1, len(train_acc) + 1)
@@ -198,20 +232,20 @@ def accuracy_plot(history):
     plt.figure(figsize=(8, 5))
     plt.plot(epochs, train_acc, label='Training Accuracy', color='blue', lw=1.0, marker='x', ms=4.0) # 'bo-' blue dots and lines
     plt.plot(epochs, val_acc, label='Validation Accuracy', color='orange', lw=1.0, marker='x', ms=4.0) # 'ro-' red dots and lines
-    plt.title('Training and Validation Accuracy Over Epochs')
+    plt.title(f'Training and Validation Accuracy Over Epochs Using {title}')
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.legend()
     plt.grid(True)
     plt.show()
 
-def confustion_mtx_map(y_true, y_pred):
+def confustion_mtx_map(y_true, y_pred,title):
     cm = confusion_matrix(y_true, y_pred)
     plt.figure(figsize=(6, 5))
     sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', 
             xticklabels=['Stay', 'Churn'], 
             yticklabels=['Stay', 'Churn'])
-    plt.title('Confusion Matrix: Churn Prediction')
+    plt.title(f'Confusion Matrix: Churn Prediction Using {title}')
     plt.ylabel('Actual')
     plt.xlabel('Predicted')
     plt.show()
@@ -298,22 +332,34 @@ def main():
     
     #--4 1st Model: Adam Optimizer, MSE Loss --
     print('\n--- 1st Model: Using Mean Squared Error (MSE)')
-    first_history, first_y_hat = NN_adam_MSE(X_train_final, y_train_final, X_test_final, y_test_final)
-    
+    first_history, first_y_hat = NN_adam_MSE(X_train_final, y_train_final, X_test_final, y_test_final) 
     #--5 Plotting Graphs--
-    loss_curve_plot(first_history)
-    accuracy_plot(first_history)
-    confustion_mtx_map(y_test_final, first_y_hat)
+    loss_curve_plot(first_history, title='MSE')
+    accuracy_plot(first_history, title='MSE and Adam Optimizer')
+    confustion_mtx_map(y_test_final, first_y_hat, title='MSE and Adam Optimizer')
     
     input("Press Enter to continue to the second model...")
     
     #--6 2nd Model: SGD Optimizer, Binary Cross Entropy Loss --
-    print('\n--- 2nd Model: Using Binary Cross Entropy (BCE)')
+    print('\n--- 2nd Model: Using Binary Cross Entropy Loss Function (BCE)')
     second_history, second_y_hat = NN_sgd_BCE(X_train_final, y_train_final, X_test_final, y_test_final)
     #--7 Plotting Graphs--
-    loss_curve_plot(second_history)
-    accuracy_plot(second_history)
-    confustion_mtx_map(y_test_final, second_y_hat)
+    loss_curve_plot(second_history, title='BCE')
+    accuracy_plot(second_history, title='BCE And SGD Optimizer')
+    confustion_mtx_map(y_test_final, second_y_hat, title='BCE And SGD Optimizer')
     
+    input("Press Enter to continue to the third model...")
+
+    #--8 3rd Model: Adam Optimizer, MSE loss, 2 hidden layer
+    print('\n--- 3nd Model: Using Mean Squared Error With extra Hidden Layer')
+    third_history, third_y_hat = NN_adam_MSE_extra_layer(X_train_final, y_train_final, X_test_final, y_test_final)
+    #--9 Plotting Graphs--
+    loss_curve_plot(third_history, title='MSE')
+    accuracy_plot(third_history, title='MSE With Extra Hidden Layer')
+    confustion_mtx_map(y_test_final, third_y_hat, title='MSE With Extra Hidden Layer')
+
+    #--10 Compare between 3 models
+
+
 if __name__ == "__main__":
     main()
