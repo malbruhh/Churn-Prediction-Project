@@ -1,3 +1,16 @@
+# create 2-3 graph
+#1 Loss curve(learning curve)-MSE,binary cross entropy
+#2 accuracy over time(epoch)
+#3 confusion matrix heatmap
+#4 Gradient/Weight distribution(Histogram)
+
+
+#preprocess data
+#one-hot encoding (for nominal)
+#Feature scaling
+#class imbalance
+#data split
+
 #Preprocessing Steps:
 #1. Standardization: Rename columns and convert to lowercase.
 
