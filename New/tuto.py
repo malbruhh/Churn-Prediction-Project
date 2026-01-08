@@ -338,7 +338,8 @@ def confustion_mtx_map(y_true, y_pred):
 
 def main():
     #--1 Load Data--
-    df = read_file("..\Dataset\Customer Churn.csv")
+    path = r'..\Dataset\Customer Churn.csv'
+    df = read_file(path)
     outliers = detect_outliers_iqr(df)
     
     #--2 Outlier Detection--
@@ -369,10 +370,8 @@ def main():
     df = df.drop(columns=['age_group'])
     print(f'\n[Changes] Dropped column: age_group due to redundancy. New shape={df.shape}\n\n')
 
-    # need to remove this
     X = df.drop(columns=['churn'], axis=1)
     Y = df['churn']
-    
     
     #1. split
     X_train,X_test,y_train,y_test = split_data(X,Y,test_split=0.2, randomness=42)
@@ -417,25 +416,9 @@ def main():
     print(f"After SMOTE - Class Distribution: {pd.Series(y_train_final).value_counts()}")
     print(f"Final training set size: {len(X_train_final)}")
     
-    # #reshape all into dataframe
-    # X_train_final = pd.DataFrame(X_train_scaled, columns=X_train.columns)
-    # X_test_final = pd.DataFrame(X_test_scaled, columns=X_test.columns)
-    # y_train_final = y_train.values.reshape(-1, 1)
-    # y_test_final = y_test.values.reshape(-1, 1)
-    
     input_dim = X_train_final.shape[1]
     input_dim = X_train_final.shape[1]
     
-    # model = BPNN(input_size=input_dim, h1=16, lr=0.01)
-    # # Train
-    # history = model.train(
-    #     X_train_final, 
-    #     y_train_final, 
-    #     X_test_scaled, 
-    #     y_test, 
-    #     epochs=500, 
-    #     patience=20
-    # )
     nn = NeuralNetwork(input_dimension= input_dim, hidden_nodes=8, alpha=0.01)
     history = nn.train(X_train_final, y_train_final, X_test_scaled, y_test)    
     y_hat = nn.predict(X_test_scaled)

@@ -4,7 +4,6 @@
 #3 confusion matrix heatmap
 #4 Gradient/Weight distribution(Histogram)
 
-
 #preprocess data
 #one-hot encoding (for nominal)
 #Feature scaling
