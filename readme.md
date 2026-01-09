@@ -57,6 +57,69 @@ https://archive.ics.uci.edu/dataset/563/iranian+churn+dataset
 
 ---
 
+## 🧪 Model Experiments
+
+  ### 1️⃣ 1st Model: Onw Hidden Layer
+
+- **Network Architecture:** 1 hidden layer  
+- **Hidden Activation:** ReLU  
+- **Output Activation:** Sigmoid  
+- **Learning Rate:** 0.01  
+- **Epochs:** 500  
+
+---
+
+### 2️⃣ 2nd Model: Two Hidden Layers
+
+- **Network Architecture:** 2 hidden layers  
+- **Hidden Activation:** ReLU  
+- **Output Activation:** Sigmoid  
+- **Learning Rate:** 0.01  
+- **Epochs:** 500  
+
+---
+
+### 3️⃣ 3rd Model: Adaptive Learning Rate
+
+- **Network Architecture:** 2 hidden layers  
+- **Hidden Activation:** ReLU  
+- **Output Activation:** Sigmoid  
+- **Optimization:** Adaptive learning rate (Exponential decay)  
+- **Epochs:** 500  
+
+---
+
+### 4️⃣ 4th Model: Larger Hidden Layers
+
+- **Network Architecture:** 2 hidden layers (larger node count)  
+- **Hidden Activation:** ReLU  
+- **Output Activation:** Sigmoid  
+- **Learning Rate:** 0.01  
+- **Epochs:** 500  
+
+---
+
+### 5️⃣ 5th Model: No Mini-Batch (Full Batch)
+
+- **Network Architecture:** 2 hidden layers  
+- **Hidden Activation:** ReLU  
+- **Output Activation:** Sigmoid  
+- **Optimization:** Full-batch Gradient Descent  
+- **Learning Rate:** 0.01  
+- **Epochs:** 500  
+
+---
+
+### 6️⃣ 6th Model: Softmax Activation Function
+
+- **Network Architecture:** 2 hidden layers  
+- **Hidden Activation:** ReLU  
+- **Output Activation:** Softmax  
+- **Learning Rate:** 0.01  
+- **Epochs:** 500  
+
+---
+
 ## 🛠️ Installation & Requirements
 
 To run the Jupyter Notebooks (`.ipynb` files), install the required libraries (included inside the `.ipynb` file):
