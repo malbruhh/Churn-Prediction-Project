@@ -61,7 +61,7 @@ https://archive.ics.uci.edu/dataset/563/iranian+churn+dataset
 
 ### Model 1: One Hidden Layer
 
-- **Network Architecture:** 1 hidden layer
+- **Network Architecture:** 1 hidden layer (8 nodes)
 - **Hidden Activation:** ReLU
 - **Output Activation:** Sigmoid
 - **Learning Rate:** 0.01
@@ -71,7 +71,7 @@ https://archive.ics.uci.edu/dataset/563/iranian+churn+dataset
 
 ### Model 2: Two Hidden Layers
 
-- **Network Architecture:** 2 hidden layers
+- **Network Architecture:** 2 hidden layers (16, 8 nodes)
 - **Hidden Activation:** ReLU
 - **Output Activation:** Sigmoid
 - **Learning Rate:** 0.01
@@ -79,50 +79,53 @@ https://archive.ics.uci.edu/dataset/563/iranian+churn+dataset
 
 ---
 
-### Model 3: Adaptive Learning Rate
+### Model 3: Two Hidden Layers with Mini-Batch
 
-- **Network Architecture:** 2 hidden layers
+- **Network Architecture:** 2 hidden layers (16, 8 nodes)
+- **Hidden Activation:** ReLU
+- **Output Activation:** Sigmoid
+- **Learning Rate:** 0.01
+- **Epochs:** 500
+- **Batch Size:** 32
+
+---
+
+### Model 4: Decay Learning Rate
+
+- **Network Architecture:** 2 hidden layers (16, 8 nodes)
 - **Hidden Activation:** ReLU
 - **Output Activation:** Sigmoid
 - **Optimization:** Adaptive learning rate (Exponential decay)
 - **Epochs:** 500
+- **Batch Size:** 32
 
 ---
 
-### Model 4: Larger Hidden Layers
+### Model 5: Larger Hidden Layers
 
-- **Network Architecture:** 2 hidden layers (larger node count)
+- **Network Architecture:** 2 hidden layers (32, 16 nodes)
 - **Hidden Activation:** ReLU
 - **Output Activation:** Sigmoid
-- **Learning Rate:** 0.01
+- **Optimization:** Decay learning rate
 - **Epochs:** 500
+- **Batch Size:** 32
 
 ---
 
-### Model 5: No Mini-Batch (Full Batch)
+### Model 6: Three Hidden Layers
 
-- **Network Architecture:** 2 hidden layers
+- **Network Architecture:** 3 hidden layers (32, 16, 8 nodes)
 - **Hidden Activation:** ReLU
 - **Output Activation:** Sigmoid
-- **Optimization:** Full-batch Gradient Descent
-- **Learning Rate:** 0.01
+- **Optimization:** Decay learning rate
 - **Epochs:** 500
-
----
-
-### Model 6: Softmax Activation Function
-
-- **Network Architecture:** 2 hidden layers
-- **Hidden Activation:** ReLU
-- **Output Activation:** Softmax
-- **Learning Rate:** 0.01
-- **Epochs:** 500
+- **Batch Size:** 32
 
 ---
 
 ### Model 7: Leaky ReLU Activation
 
-- **Network Architecture:** 3 hidden layers (larger node count)
+- **Network Architecture:** 3 hidden layers (32, 16, 8 nodes)
 - **Hidden Activation:** Leaky ReLU
 - **Output Activation:** Sigmoid
 - **Optimization:** Decay learning rate
